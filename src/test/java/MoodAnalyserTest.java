@@ -8,7 +8,7 @@ public class MoodAnalyserTest {
         //  CREATING MoodAnalyser OBJECT
         MoodAnalyser analyser = new MoodAnalyser("I'm in a Sad Mood");
         // CALLING analyseMood FUNCTION WITH MESSAGE AS PARAMETER
-        String mood = analyser.analyseMood();
+        String mood = analyser.analyseMood();   // USING MESSAGE FIELD DEFINED FOR THE CLASS
         Assert.assertEquals("SAD", mood);
     }
     // TC 1.2: PASS THE TEST CASE TO RETURN HAPPY MOOD
@@ -17,7 +17,7 @@ public class MoodAnalyserTest {
         //  CREATING MoodAnalyser OBJECT
         MoodAnalyser analyser = new MoodAnalyser("I'm in a Happy Mood");
         // CALLING analyseMood FUNCTION WITH MESSAGE AS PARAMETER
-        String mood = analyser.analyseMood();
+        String mood = analyser.analyseMood();   // USING MESSAGE FIELD DEFINED FOR THE CLASS
         Assert.assertEquals("HAPPY", mood);
     }
 }
