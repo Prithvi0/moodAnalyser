@@ -3,7 +3,7 @@ public class MoodAnalyser {
     public MoodAnalyser(String message) {
         this.message = message;
     }
-    // METHOD CONTAINING SAD MESSAGE RETURNS 'SAD'
+    // METHOD CONTAINING SAD MESSAGE RETURNS 'SAD' ELSE RETURNS 'HAPPY'
     public String analyseMood() {
         if (message.contains("Sad"))
             return "SAD";
