@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class MoodAnalyser {
     private String message;
     // DEFAULT CONSTRUCTOR
@@ -27,8 +29,18 @@ public class MoodAnalyser {
                                             "Please Enter correct mood");
         }
     }
-
+    // METHOD TO CHECK IF THE TWO OBJECTS ARE EQUAL
+    @Override
     public boolean equals(Object another) {
-        return this.message.equals(((MoodAnalyser) another).message);
+        if (this == another)
+            return true;
+        if (another == null || getClass() != another.getClass())
+            return false;
+        MoodAnalyser that = (MoodAnalyser) another;
+        return Objects.equals(message, that.message);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 }

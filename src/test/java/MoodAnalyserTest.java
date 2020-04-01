@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+
 public class MoodAnalyserTest {
     // TC 1.1: PASS THE TEST CASE TO RETURN SAD MOOD
     @Test
@@ -11,6 +13,7 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("SAD", mood);
     }
+
     // TC 1.2: PASS THE TEST CASE TO RETURN HAPPY MOOD
     @Test
     public void givenMood_WhenAnyMood_ShouldReturnHappyMessage() throws MoodAnalysisException {
@@ -20,6 +23,7 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("HAPPY", mood);
     }
+
     // TC 2.1: TEST CASE TO PASS NULL EXCEPTION AND RETURN HAPPY
     @Test
     public void givenMood_WhenNull_ShouldReturnHappyMessage() throws MoodAnalysisException {
@@ -27,6 +31,7 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("HAPPY", mood);
     }
+
     //  T.C 3.1: PASS TEST CASE IN TRY CATCH BLOCK AND THROW EXCEPTION IF MOOD IS NULL
     @Test
     public void givenMood_WhenNull_ShouldThrowException() {
@@ -37,6 +42,7 @@ public class MoodAnalyserTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
         }
     }
+
     //  T.C 3.2: PASS TEST CASE TO HANDLE EMPTY MOOD BY THROWING THE EXCEPTION AND INFORM THE SAME
     @Test
     public void givenMood_WhenEmpty_ShouldThrowException() {
@@ -46,5 +52,15 @@ public class MoodAnalyserTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, e.type);
         }
+    }
+
+    //  T.C 4.1: PASS TEST CASE IF TWO OBJECTS ARE EQUAL
+    @Test
+    public void givenMoodAnalyserClass_WhenCorrect_ShouldReturnObject() throws MoodAnalysisException {
+        MoodAnalyser analyser = new MoodAnalyser();
+        Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+        Object newObject = MoodAnalyserFactory.createDefaultMoodAnalyserObject(constructor);
+        boolean equal = analyser.equals(newObject);
+        Assert.assertTrue(equal);
     }
 }
