@@ -73,4 +73,13 @@ public class MoodAnalyserTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
         }
     }
+    //  T.C 4.3: PASS TEST CASE WITH WRONG CONSTRUCTOR PARAMETER AND THROW THE EXCEPTION
+    @Test
+    public void givenConstructor_WhenIncorrect_ShouldThrowException() {
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
 }
