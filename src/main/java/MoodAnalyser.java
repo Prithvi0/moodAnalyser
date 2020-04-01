@@ -7,16 +7,28 @@ public class MoodAnalyser {
     public MoodAnalyser(String message) {   //  MoodAnalyser WITH A MESSAGE FIELD
         this.message = message;
     }
-    // METHOD CONTAINING SAD MESSAGE RETURNS 'SAD' ELSE RETURNS 'HAPPY'
-    public String analyseMood() {   // METHOD SUPPORTING NO PARAMETERS
+    //
+    public String analyseMood(String message) throws MoodAnalysisException {
+        this.message = message;
+        return analyseMood();
+    }
+
+    public String analyseMood() throws MoodAnalysisException {
         try {
-            if (message.contains("Sad"))    // USING MESSAGE FIELD DEFINED FOR THE CLASS
+            if (message.length() == 0)
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY,
+                        "Please Enter correct mood");
+            if (message.contains("Sad"))
                 return "SAD";
             else
                 return "HAPPY";
-        } catch (NullPointerException e) {  // HANDLING EXCEPTION WHEN USER PROVIDES INVALID MOOD ( NULL )
-            e.printStackTrace();
-            return "HAPPY";
+        } catch (NullPointerException e) {  // HANDLING CUSTOM EXCEPTION FOR INVALID MOOD ( NULL )
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL,
+                                            "Please Enter correct mood");
         }
+    }
+
+    public boolean equals(Object another) {
+        return this.message.equals(((MoodAnalyser) another).message);
     }
 }
