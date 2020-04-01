@@ -27,7 +27,7 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("HAPPY", mood);
     }
-    //  T.C 3.1: PASS TEST CASE IN TRY CATCH BLOCK AND THROW EXCEPTION
+    //  T.C 3.1: PASS TEST CASE IN TRY CATCH BLOCK AND THROW EXCEPTION IF MOOD IS NULL
     @Test
     public void givenMood_WhenNull_ShouldThrowException() {
         MoodAnalyser analyser = new MoodAnalyser(null);
@@ -35,6 +35,16 @@ public class MoodAnalyserTest {
             analyser.analyseMood(null);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+    //  T.C 3.2: PASS TEST CASE TO HANDLE EMPTY MOOD BY THROWING THE EXCEPTION AND INFORM THE SAME
+    @Test
+    public void givenMood_WhenEmpty_ShouldThrowException() {
+        MoodAnalyser analyser = new MoodAnalyser("");
+        try {
+            analyser.analyseMood();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, e.type);
         }
     }
 }
