@@ -63,4 +63,14 @@ public class MoodAnalyserTest {
         boolean equal = analyser.equals(newObject);
         Assert.assertTrue(equal);
     }
+    //  T.C 4.2: PASS TEST CASE WITH WRONG CLASS NAME AND THROW THE EXCEPTION
+    @Test
+    public void givenMoodAnalyserClass_WhenIncorrect_ShouldThrowException() {
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("Mood");
+
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
+    }
 }
