@@ -9,7 +9,7 @@ public class MoodAnalyser {
     public MoodAnalyser(String message) {   //  MoodAnalyser WITH A MESSAGE FIELD
         this.message = message;
     }
-    //
+
     public String analyseMood(String message) throws MoodAnalysisException {
         this.message = message;
         return analyseMood();

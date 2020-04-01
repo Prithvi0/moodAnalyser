@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.lang.reflect.Constructor;
 
 public class MoodAnalyserTest {
+    public MoodAnalyser analyser;
     // TC 1.1: PASS THE TEST CASE TO RETURN SAD MOOD
     @Test
     public void givenMood_WhenSad_ShouldReturnSadMessage() throws MoodAnalysisException {
@@ -81,5 +82,11 @@ public class MoodAnalyserTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
+    }
+    //  T.C 5.1: PASS TEST CASE IF TWO OBJECTS ARE EQUAL (OBJECT WITH PARAMETERISED CONSTRUCTOR)
+    @Test
+    public void givenParameterisedConstructor_WhenCorrect_ShouldReturnObject() throws MoodAnalysisException {
+        MoodAnalyser moodAnalyser = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
+        Assert.assertEquals(new MoodAnalyser("I'm in a Happy Mood"), moodAnalyser);
     }
 }
