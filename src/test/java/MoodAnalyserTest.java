@@ -119,4 +119,14 @@ public class MoodAnalyserTest {
             e.printStackTrace();
         }
     }
+    // T.C 6.2: PASS TEST CASE WITH WRONG METHOD NAME AND THROW THE EXCEPTION
+    @Test
+    public void givenHappyMessage_WhenImproperMethod_ShouldThrowException() throws MoodAnalysisException {
+        MoodAnalyser analyser = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
+        try {
+            Constructor<?> MoodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
 }
