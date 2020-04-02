@@ -1,6 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -15,7 +14,6 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("SAD", mood);
     }
-
     // TC 1.2: PASS THE TEST CASE TO RETURN HAPPY MOOD
     @Test
     public void givenMood_WhenAnyMood_ShouldReturnHappyMessage() throws MoodAnalysisException {
@@ -25,7 +23,6 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("HAPPY", mood);
     }
-
     // TC 2.1: TEST CASE TO PASS NULL EXCEPTION AND RETURN HAPPY
     @Test
     public void givenMood_WhenNull_ShouldReturnHappyMessage() throws MoodAnalysisException {
@@ -33,7 +30,6 @@ public class MoodAnalyserTest {
         String mood = analyser.analyseMood();
         Assert.assertEquals("HAPPY", mood);
     }
-
     //  T.C 3.1: PASS TEST CASE IN TRY CATCH BLOCK AND THROW EXCEPTION IF MOOD IS NULL
     @Test
     public void givenMood_WhenNull_ShouldThrowException() {
@@ -44,7 +40,6 @@ public class MoodAnalyserTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
         }
     }
-
     //  T.C 3.2: PASS TEST CASE TO HANDLE EMPTY MOOD BY THROWING THE EXCEPTION AND INFORM THE SAME
     @Test
     public void givenMood_WhenEmpty_ShouldThrowException() {
@@ -55,7 +50,6 @@ public class MoodAnalyserTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, e.type);
         }
     }
-
     //  T.C 4.1: PASS TEST CASE IF TWO OBJECTS ARE EQUAL
     @Test
     public void givenMoodAnalyserClass_WhenCorrect_ShouldReturnObject() throws MoodAnalysisException {
@@ -114,7 +108,7 @@ public class MoodAnalyserTest {
             Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
             Object moodObject = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
             Object moodObj = MoodAnalyserFactory.analyseMoodInvoke(moodObject, "analyseMood");
-            Assert.assertEquals("HAPPY",moodObj);
+            Assert.assertEquals("HAPPY", moodObj);
         } catch (MoodAnalysisException e) {
             e.printStackTrace();
         }
@@ -128,5 +122,16 @@ public class MoodAnalyserTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
+    }
+    // T.C 7.1: PASS TEST CASE TO SET FIELD VALUE AND INVOKE METHOD USING REFLECTION AND ASSERT HAPPY MOOD
+    @Test
+    public void givenHappyMessage_WithReflector_ShouldReturnHappy() throws MoodAnalysisException {
+        MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyzerDefault();
+          try {
+              String mood = (String) MoodAnalyserFactory.changeMoodDynamically(moodAnalyser,"message","I'm in a Happy Mood");
+              Assert.assertEquals("HAPPY", mood);
+            } catch (MoodAnalysisException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+          }
     }
 }

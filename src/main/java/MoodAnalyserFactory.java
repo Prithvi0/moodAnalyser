@@ -4,6 +4,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MoodAnalyserFactory {
+    //Return Object of Default Constructor
+    public static MoodAnalyser createMoodAnalyzerDefault(){
+        try {
+            Constructor<?> constructor = Class.forName("MoodAnalyser").getConstructor();
+            MoodAnalyser moodAnalyzer = (MoodAnalyser) constructor.newInstance();
+            return  moodAnalyzer;
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     // REFLECTION TO CREATE OBJECT WITH DEFAULT CONSTRUCTOR
     public static Constructor<?> getConstructor(String moodAnalyser, Class<?>... param) throws MoodAnalysisException {
         try {
@@ -14,9 +25,9 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
-    public static Object createDefaultMoodAnalyserObject(Constructor<?> constructor) throws MoodAnalysisException {
+    public static MoodAnalyser createDefaultMoodAnalyserObject(Constructor<?> constructor) throws MoodAnalysisException {
         try {
-            return constructor.newInstance();
+            return (MoodAnalyser) constructor.newInstance();
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -45,14 +56,10 @@ public class MoodAnalyserFactory {
         return moodAnalyser;
     }
     //  REFLECTION TO CHANGE MOOD DYNAMICALLY
-    public static Object changeMoodDynamically(MoodAnalyser moodObject, String message, String fieldValue) {
-        try {
-            Class<?> objectClass = moodObject.getClass();
-            Field fieldObject = objectClass.getDeclaredField(message);
-            fieldObject.set(moodObject,fieldValue);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static Object changeMoodDynamically(Object moodObject, String message, String fieldValue) throws MoodAnalysisException, NoSuchMethodException, NoSuchFieldException, IllegalAccessException, InvocationTargetException {
+        Field fieldObject = moodObject.getClass().getDeclaredField(fieldValue);
+        fieldObject.setAccessible(true);
+        fieldObject.set(moodObject, message);
+        return moodObject.getClass().getDeclaredMethod("analyseMood").invoke(moodObject);
     }
 }
