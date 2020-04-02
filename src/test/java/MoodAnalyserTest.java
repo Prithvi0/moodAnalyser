@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserTest {
     public MoodAnalyser analyser;
@@ -108,12 +109,14 @@ public class MoodAnalyserTest {
     }
     //  T.C 6.1: PASS TEST CASE FOR REFLECTION TO INVOKE METHOD AND SHOW HAPPY MOOD
     @Test
-    public void givenHappyMessage_WhenCorrect_ShouldReturnHappy() throws MoodAnalysisException {
-        MoodAnalyser analyser = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
+    public void givenHappyMessage_WhenProper_ShouldReturnHappyMood() throws MoodAnalysisException, IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
         try {
-            Constructor<?> MoodAnalyseConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
+            Object moodObject = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
+            Object moodObj = MoodAnalyserFactory.analyseMoodInvoke(moodObject, "analyseMood");
+            Assert.assertEquals("HAPPY",moodObj);
         } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
+            e.printStackTrace();
         }
     }
 }

@@ -1,5 +1,6 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class MoodAnalyserFactory {
     // REFLECTION TO CREATE OBJECT WITH DEFAULT CONSTRUCTOR
@@ -21,6 +22,7 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
+
     // REFLECTION TO CREATE OBJECT WITH PARAMETERISED CONSTRUCTOR
     public static MoodAnalyser createParameterisedMoodAnalyserObject(String message) throws MoodAnalysisException {
         try {
@@ -31,13 +33,18 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
+
     //  REFLECTION TO INVOKE METHOD
-    public static Object analyseMoodInvoke(MoodAnalyser moodAnalyser, String analyseMood) {
+    public static Object analyseMoodInvoke(Object moodAnalyser, String analyseMood) {
+        moodAnalyser = moodAnalyser;
         try {
-            moodAnalyser.getClass().getMethod(analyseMood).invoke(moodAnalyser);
+            Method invokeMethod = moodAnalyser.getClass().getMethod(analyseMood);
+            Object result = invokeMethod.invoke(moodAnalyser);
+            return result;
+//            moodAnalyser.getClass().getMethod(analyseMood).invoke(moodAnalyser);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        return null;
+        return moodAnalyser;
     }
 }
