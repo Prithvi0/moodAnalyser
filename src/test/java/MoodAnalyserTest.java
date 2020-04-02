@@ -150,7 +150,7 @@ public class MoodAnalyserTest {
 
     // T.C 7.2: PASS TEST CASE FOR IMPROPER SET FIELD AND THROW AN EXCEPTION
     @Test
-    public void givenSetField_WhenImproper_ShouldThrowException() {
+    public void givenField_WhenSetImproperValue_WithReflector_ShouldThrowException() {
         try {
             Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
             MoodAnalyser moodAnalyserObject = MoodAnalyserFactory.createDefaultMoodAnalyserObject(moodAnalyserConstructor);
@@ -163,6 +163,23 @@ public class MoodAnalyserTest {
                 e.printStackTrace();
             }
         } catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // T.C 7.3: PASS TEST CASE TO SET FIELD VALUE TO NULL AND THROW AN EXCEPTION
+    @Test
+    public void givenSetField_WhenSetToNullMessage_WithReflector_ShouldThrowException() {
+        try {
+            Constructor<?> moodAnalyserConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser");
+            MoodAnalyser moodAnalyserObject = MoodAnalyserFactory.createDefaultMoodAnalyserObject(moodAnalyserConstructor);
+            try {
+                MoodAnalyserFactory.changeMoodDynamically(moodAnalyserObject, "I'm in a Happy Mood", null);
+            } catch (MoodAnalysisException e) {
+                Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
+                e.printStackTrace();
+            }
+        } catch (MoodAnalysisException | NoSuchMethodException | NoSuchFieldException | IllegalAccessException | InvocationTargetException | NullPointerException e) {
             e.printStackTrace();
         }
     }
