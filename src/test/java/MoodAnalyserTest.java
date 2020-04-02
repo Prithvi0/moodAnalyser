@@ -68,7 +68,7 @@ public class MoodAnalyserTest {
     @Test
     public void givenMoodAnalyserClass_WhenIncorrect_ShouldThrowException() {
         try {
-            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("Mood");
+            Constructor<?> defaultConstructor = MoodAnalyserFactory.getConstructor("Mood");
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
         }
@@ -77,7 +77,7 @@ public class MoodAnalyserTest {
     @Test
     public void givenConstructor_WhenIncorrect_ShouldThrowException() {
         try {
-            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
+            Constructor<?> defaultConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
@@ -92,16 +92,26 @@ public class MoodAnalyserTest {
     @Test
     public void givenParameterisedConstructor_WhenIncorrectMoodAnalysisClass_ShouldThrowException() {
         try {
-            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("Mood");
+            Constructor<?> paramConstructor = MoodAnalyserFactory.getConstructor("Mood");
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
         }
     }
-
+    // T.C 5.3: PASS TEST CASE FOR WRONG PARAMETERISED CONSTRUCTOR AND THROW THE EXCEPTION
     @Test
     public void givenParameterisedConstructor_WhenIncorrect_ShouldThrowException() {
         try {
-            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
+            Constructor<?> paramConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", Integer.class);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
+        }
+    }
+    //  T.C 6.1: PASS TEST CASE FOR REFLECTION TO INVOKE METHOD AND SHOW HAPPY MOOD
+    @Test
+    public void givenHappyMessage_WhenCorrect_ShouldReturnHappy() throws MoodAnalysisException {
+        MoodAnalyser analyser = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
+        try {
+            Constructor<?> MoodAnalyseConstructor = MoodAnalyserFactory.getConstructor("MoodAnalyser", String.class);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }

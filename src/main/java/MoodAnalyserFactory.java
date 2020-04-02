@@ -31,4 +31,13 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
+    //  REFLECTION TO INVOKE METHOD
+    public static Object analyseMoodInvoke(MoodAnalyser moodAnalyser, String analyseMood) {
+        try {
+            moodAnalyser.getClass().getMethod(analyseMood).invoke(moodAnalyser);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
