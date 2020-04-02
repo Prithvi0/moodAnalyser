@@ -69,7 +69,6 @@ public class MoodAnalyserTest {
     public void givenMoodAnalyserClass_WhenIncorrect_ShouldThrowException() {
         try {
             Constructor<?> constructor = MoodAnalyserFactory.getConstructor("Mood");
-
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
         }
@@ -88,5 +87,14 @@ public class MoodAnalyserTest {
     public void givenParameterisedConstructor_WhenCorrect_ShouldReturnObject() throws MoodAnalysisException {
         MoodAnalyser moodAnalyser = MoodAnalyserFactory.createParameterisedMoodAnalyserObject("I'm in a Happy Mood");
         Assert.assertEquals(new MoodAnalyser("I'm in a Happy Mood"), moodAnalyser);
+    }
+    // T.C 5.2: PASS TEST CASE FOR PARAMETERISED CONSTRUCTOR WITH WRONG CLASS NAME AND THROW THE EXCEPTION
+    @Test
+    public void givenParameterisedConstructor_WhenIncorrectMoodAnalysisClass_ShouldThrowException() {
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("Mood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
     }
 }
