@@ -1,4 +1,5 @@
 public class MoodAnalysisException extends Exception{
+
     //  USING ENUM TO DIFFERENTIATE THE MOOD ANALYSIS ERROR
     enum ExceptionType {
         ENTERED_NULL, ENTERED_EMPTY, NO_SUCH_FIELD, NO_SUCH_METHOD, NO_SUCH_CLASS,
